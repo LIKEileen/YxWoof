@@ -1,0 +1,40 @@
+{
+  "release_id": "public-0.1.0",
+  "workflow_version": "wf-1",
+  "prompt_version": "intent-1_grounded-2",
+  "metric_version": "prd-1.1",
+  "price_version": "unconfigured",
+  "config_version": 1,
+  "turn_seconds": 30,
+  "tool_limit": 6,
+  "model_limit": 2,
+  "turn_credits": 10,
+  "total_credits": 1000,
+  "preview_seconds": 300,
+  "reconcile_seconds": 120,
+  "reconcile_limit": 3,
+  "disabled_merchants": [],
+  "writes_enabled": true,
+  "ai_enabled": false,
+  "help_entries": {},
+  "model_api": {
+    "base_url": "",
+    "chat_model": "",
+    "embedding_model": "",
+    "rerank_model": "",
+    "chat_extra": {},
+    "embedding_extra": {},
+    "rerank_extra": {}
+  },
+  "pricing": {
+    "configured": false,
+    "unit": "LOCAL_BUDGET_UNIT",
+    "input_per_million": null,
+    "cached_input_per_million": null,
+    "output_per_million": null,
+    "input_reservation_per_million": null,
+    "output_reservation_per_million": null,
+    "embedding_reserve": null,
+    "rerank_reserve": null
+  }
+}

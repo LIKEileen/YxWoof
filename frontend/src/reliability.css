@@ -1,0 +1,5 @@
+.support-contact { display:flex; flex-direction:column; align-items:flex-start; gap:12px; }
+.support-contact strong { font-size:17px; overflow-wrap:anywhere; }
+.support-contact .field-label { margin:0; }
+.error-banner { flex-wrap:wrap; }
+.error-banner > span { flex:1; min-width:180px; }

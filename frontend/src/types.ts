@@ -1,0 +1,10 @@
+export type Order={id:string;merchant_id:string;merchant_name:string;product:string;spec:string;price_cents:number;status:string;delivery_days:number|null;ordered_date:string;logistics:{time:string;text:string}[];updated_at:string;version:number};
+export type Goal='qa'|'query'|'eligibility'|'application';
+export type Card={type:string;goals?:Goal[];source_ids?:string[];fields?:{reason?:string;condition?:string};preview_id?:string;action_id?:string;order?:Order;applications?:{id:string;status:string;created_at:string}[];allowed?:boolean;days?:number;id?:string;status?:string};
+export type Message={id:string;task_id:string|null;role:string;text:string;cards:Card[];created_at:string};
+export type Task={id:string;goal:string;goal_label:string;requested_goal:string;status:string;active:boolean;created_at:string;fields:{reason?:string;condition?:string};unhandled:string[];action_id:string};
+export type Preview={id:string;content_hash:string;invalidated:boolean;expires_at:string;policy_version:string;content:{merchant:string;order_id:string;product:string;spec:string;type:string;reason:string;condition:string;quantity:number;order_amount_cents:number;notice:string}};
+export type Action={id:string;status:string;application_id:string|null;reconcile_count:number;updated_at:string};
+export type Conversation={id:string;consumer:{id:string;name:string};automation_state:string;state_version:number;control_version:number;order:Order|null;task:Task|null;preview:Preview|null;action:Action|null;actions?:Record<string,Action>;inflight:boolean;messages:Message[]};
+export type HelpInfo={availability:string;entry:{url?:string;label?:string;contact?:string;virtual?:boolean}|null;summary:string;pause_confirmed?:boolean};
+export type Source={id:string;title:string;content:string;policy_version:string;merchant:string;updated_at?:string};

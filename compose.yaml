@@ -1,0 +1,49 @@
+name: yxwoof-public
+services:
+  db:
+    image: pgvector/pgvector@sha256:cf134a767f474095eeba57e0117be8e568e011a63f33fbf252f14c9b760f8e6f
+    environment:
+      POSTGRES_DB: yxwoof
+      POSTGRES_USER: yxwoof
+      POSTGRES_PASSWORD: ${YXWOOF_DB_PASSWORD:?Run python3 scripts/bootstrap.py}
+    volumes:
+      - ./.runtime/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yxwoof -d yxwoof"]
+      interval: 3s
+      retries: 20
+    restart: unless-stopped
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:${YXWOOF_PORT:-8780}:8780"
+    environment:
+      DATABASE_URL: postgresql+psycopg://yxwoof:${YXWOOF_DB_PASSWORD}@db:5432/yxwoof
+      MODEL_API_KEY: ${MODEL_API_KEY:-}
+      MODEL_BASE_URL: ${MODEL_BASE_URL:-}
+      MODEL_CHAT_NAME: ${MODEL_CHAT_NAME:-}
+      MODEL_EMBEDDING_NAME: ${MODEL_EMBEDDING_NAME:-}
+      MODEL_RERANK_NAME: ${MODEL_RERANK_NAME:-}
+      AVATAR_PATH: /workspace/assets/avatar.png
+      CONFIG_PATH: /workspace/config/runtime.json
+      NOTIFICATION_CONFIG: /workspace/config/notifications.json
+      APP_RELEASE: public-0.1.0
+      INCIDENT_DIR: /workspace/incidents
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./config:/workspace/config:ro
+      - ./.runtime/incidents:/workspace/incidents
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8780/api/v1/health',timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "5"

@@ -1,0 +1,33 @@
+# Local configuration, credentials and runtime data
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+config/*.local.json
+.runtime/
+data/
+fixtures/
+external-data/
+backups/
+*.dump
+*.sqlite*
+*.log
+# Generated dependencies and checks
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+test-results/
+playwright-report/
+coverage/
+.DS_Store
+.npm-cache/
+frontend/test-results.xml
